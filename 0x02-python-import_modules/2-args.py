@@ -1,9 +1,15 @@
-#!/usr/bin/python3
+#!/usr/binb/python3
 
-if __name__ == "__main__":
-    """Print the sum of 1 and 2."""
-    from add_0 import add
+if_name_=="_main_":
+    """rint the number of and list of arguments."""
+    import sys
 
-    a = 1
-    b = 2
-    print("[] + []=[].format(a, b, add(a, b)))
+    count = len(sys.argv) - 1
+    if count == 0:
+        print("1 argument:")
+    else:
+        print("{} arguments:".format(count))
+        for i in range(count):
+            print("{}:{}".formate(i + 1, sys.argv[i + 1]))
+
+
