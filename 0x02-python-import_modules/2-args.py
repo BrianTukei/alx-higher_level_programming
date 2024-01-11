@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-if__name__=="__main__":
+if__name__== "__main__":
     """print the number of and list of arguments."""
     import sys
 
