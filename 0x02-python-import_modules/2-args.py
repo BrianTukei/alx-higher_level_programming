@@ -1,7 +1,7 @@
 #!/usr/binb/python3
 
 if_name_=="_main_":
-    """rint the number of and list of arguments."""
+    """print the number of and list of arguments."""
     import sys
 
     count = len(sys.argv) - 1
