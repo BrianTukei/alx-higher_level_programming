@@ -1,13 +1,16 @@
 #!/usr/bin/python3
-"""text indent"""
+"""
+Module text_indentation
+Adds two new lines after a set of characters.
+"""
 
 def text_indentation(text):
-    """text indent"""
-    if not isinstance(text, str):
+    """Prints text with added two newlines
+    after each of these characters {'.', '?', ':'}.
+    """
+    if type(text) is not str:
         raise TypeError("text must be a string")
-    for delimeter in "?:.":
-        words = (delimeter + "\n\n").join(
-                [index.strip(" ") for index in words.split(delimeter)])
-        if __name__ == "__main__":
-            import doctest
-            doctest.testfile("tests/5-text_indentation.txt")
+    for delim in ".:?":
+        text = (delim + "\n\n").join(
+                [line.strip(" ") for line in text.split(delim)])
+        print("{}".format(text), end=""))
