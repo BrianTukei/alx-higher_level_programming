@@ -4,17 +4,18 @@
 
 class Student:
         """
-            Class that defines properties of student.
+        Class that defines properties of student.
 
-                Attributes:
-                        first_name (str): first name of student.
-                                last_name (int): last name of student.
-                                        age (int): age of student.
-                                            """
-                                                def __init__(self, first_name, last_name, age):
-                                                            """Creates new instances of Student.
+        Attributes:
+        first_name (str): first name of student.
+        last_name (int): last name of student.
+        age (int): age of student.
+        """
 
-                                                                    Args:
+        def __init__(self, first_name, last_name, age):
+        """Creates new instances of Student.
+
+        Args:
                                                                                 first_name (str): first name of student.
                                                                                             last_name (int): last name of student.
                                                                                                         age (int): age of student.
