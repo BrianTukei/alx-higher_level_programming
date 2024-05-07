@@ -1,62 +1,70 @@
 #!/usr/bin/python3
 """
-Module that multiplies 2 matrices
+    100-matrix_mul Module
 """
 
 
 def matrix_mul(m_a, m_b):
     """
-    Function that multiplies 2 matrices
+        Multiplies 2 matrices
 
-    Args:
-        m_a (list): first matrix
-        m_b (list): second matrix
+        Args:
+            m_a: first matrix(2D List)
+            m_b: second matrix(2D List)
 
-    Raises:
-        TypeError: Errrors raised when matrix not a list of list integers/float
-        ValueError: Empty matrix
-
-    Returns:
-        list: matrix dot product of m_a and m_b
+        Returns:
+            the product of two matrices
     """
 
-    if not isinstance(m_a, list):
+    prev_len = 0
+    if type(m_a) is not list:
         raise TypeError("m_a must be a list")
-    if not isinstance(m_b, list):
+    if type(m_b) is not list:
         raise TypeError("m_b must be a list")
-    if len(m_a) == 0:
+    if not m_a:
         raise ValueError("m_a can't be empty")
-    if len(m_b) == 0:
+    if not m_b:
         raise ValueError("m_b can't be empty")
-    for i in m_a:
-        if not isinstance(i, list):
+
+    for blocks in m_a:
+        if type(blocks) is not list:
             raise TypeError("m_a must be a list of lists")
-        if len(i) == 0:
+        if not blocks:
             raise ValueError("m_a can't be empty")
-    for i in m_b:
-        if not isinstance(i, list):
-            raise TypeError("m_b must be a list of lists")
-        if len(i) == 0:
-            raise ValueError("m_b can't be empty")
-    size_a = len(m_a[0])
-    size_b = len(m_b[0])
-    result = []
-    for i in range(len(m_a)):
-        if len(m_a[i]) != size_a:
+        for integers in blocks:
+            if type(integers) is not int and type(integers) is not float:
+                raise TypeError("m_a should contain only integers or floats")
+        if len(blocks) != prev_len and prev_len != 0:
             raise TypeError("each row of m_a must be of the same size")
-        result.append([0] * len(m_b[0]))
-        for j in range(len(m_b[0])):
-            for k in range(len(m_b)):
-                if len(m_b[k]) != size_b:
-                    raise TypeError("each row of m_b must be of the same size")
-                if not isinstance(m_a[i][k], (int, float)):
-                    raise TypeError("m_a should contain only " +
-                                    "integers or floats")
-                if not isinstance(m_b[k][j], (int, float)):
-                    raise TypeError("m_b should contain only " +
-                                    "integers or floats")
-                try:
-                    result[i][j] += m_a[i][k] * m_b[k][j]
-                except Exception:
-                    ValueError("m_a and m_b can't be multiplied")
-    return result
+        prev_len = len(blocks)
+
+    prev_len = 0
+    for blocks in m_b:
+        if type(blocks) is not list:
+            raise TypeError("m_b must be a list of lists")
+        if not blocks:
+            raise ValueError("m_b can't be empty")
+        for integers in blocks:
+            if type(integers) is not int and type(integers) is not float:
+                raise TypeError("m_b should contain only integers or floats")
+        if len(blocks) != prev_len and prev_len != 0:
+            raise TypeError("each row of m_b must be of the same size")
+        prev_len = len(blocks)
+
+    if len(m_a[0]) != len(m_b):  # cols of m_a must be equal to rows of m_b
+        raise ValueError("m_a and m_b can't be multiplied")
+
+    result_list = list()    # multiplication starts
+    for row_a in range(len(m_a)):
+        flag = 0
+        inner_list = list()
+        for row_b in range(len(m_b)):
+            for col in range(len(m_b[row_b])):
+                if flag == 0:
+                    inner_list.append(m_a[row_a][row_b] * m_b[row_b][col])
+                else:
+                    inner_list[col] += (m_a[row_a][row_b] * m_b[row_b][col])
+            flag = 1
+        result_list.append(inner_list)  # multiplied matrix(2D List)
+
+    return result_list
