@@ -16,4 +16,4 @@ def lazy_matrix_mul(m_a, m_b):
         Returns:
             the product of two matrices
     """
-    return np.dot(m_a, m_b)
+    return np.matmul(m_a, m_b)
