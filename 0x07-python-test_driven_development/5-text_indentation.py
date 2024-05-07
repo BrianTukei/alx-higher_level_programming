@@ -1,33 +1,42 @@
 #!/usr/bin/python3
 """
-Module to print after . ? and :
+    5-text_indentation Module
 """
 
 
 def text_indentation(text):
     """
-    Write a function that prints a text with 2 new lines after each of these characters: ., ? and :
+        Prints a text with 2 new lines after each of this characters
+        '.', '?', ':'
 
-    Args:
-        test (str): string
-
-    Raises:
-        TypeError: error
+        Args:
+            text: inital string to work on
     """
-
-    if not isinstance(text, str):
+    if type(text) is not str:
         raise TypeError("text must be a string")
-    none_found = True
-    start = 0
-    for i in range(len(text)):
 
-        if (ord(text[i]) == ord(".") or ord(text[i]) == ord("?") or ord(text[i]) == ord(":")):
-            none_found = False
-            string_to_print = text[start:i + 1].strip()
-            print(f"{string_to_print}\n\n", end="")
-            if (i + 1) <= (len(text) - 1):
-                start = i + 1
-    if none_found:
-        print(text.strip(), end="")
-    elif start != (len(text) - 1):
-        print(text[start:len(text)].strip(), end="")
+    split_text_list = list()
+    new_text = list()
+    letters_list = list()
+
+    for character in text:
+        letters_list.append(character)
+        if character in ['.', '?', ':']:
+            split_text_list.append(''.join(letters_list))
+            letters_list.clear()
+
+    if letters_list:
+        split_text_list.append("".join(letters_list))
+    letters_list.clear()
+
+    for sentence in split_text_list:
+        new_text.append(sentence.strip(' '))
+    split_text_list.clear()
+
+    for character in new_text[-1]:
+        if character in ['.', '?', ':']:
+            print("\n\n".join(new_text))
+            print()
+            return
+
+    print("\n\n".join(new_text), end='')

@@ -1,45 +1,42 @@
 #!/usr/bin/python3
 """
-Division Module
+    2-matrix_divided Module
 """
+
 
 def matrix_divided(matrix, div):
     """
-    function that divides all elements of a matrix
+        Divides all elements of a matrix
 
-    Args:
-        matrix (:obj:list of :obj:int): Matrix
-        div (int:float): float or integer
+        Args:
+            matrix: intial 2D list
+            div: integer which is the divisor
 
-    Raises:
-        TypeError: must be lists of lists and Each row
-            must have the same size
-
-    Returns:
-        list:list: new list
+        Returns:
+            New matrix containing the divided elements
+            rounded to 2 decimal places
     """
-    new_matrix = []
-    if (not isinstance(div, float) and not isinstance(div, int)):
+    prev_len = 0
+    error_mess = "matrix must be a matrix (list of lists) of integers/floats"
+    if type(matrix) is not list:
+        raise TypeError(error_mess)
+
+    for block in matrix:    # matrix is a list
+        if type(block) is not list:
+            raise TypeError(error_mess)
+
+        for element in block:
+            if type(element) is not int and type(element) is not float:
+                raise TypeError(error_mess)
+
+        if len(block) != prev_len and prev_len != 0:
+            raise TypeError("Each row of the matrix must have the same size")
+        prev_len = len(block)
+
+    if type(div) is not int and type(div) is not float:
         raise TypeError("div must be a number")
+
     if div == 0:
         raise ZeroDivisionError("division by zero")
-    if not isinstance(matrix, list):
-        raise TypeError("matrix must be a matrix (list of lists) of integers/floats")
-    try:
-        size = len(matrix[0])
-    except Exception:
-        raise TypeError("matrix must be a matrix (list of lists) of integers/floats")
-    for i in matrix:
-        if not isinstance(i, list):
-            raise TypeError("matrix must be a matrix (list of lists) of integers/floats")
-        if len(i) != size:
-            raise TypeError("Each row of the matrix must have the same size")
-        new_row = []
-        for number in i:
-            if not isinstance(number, int) and not isinstance(number, float):
-                raise TypeError("matrix must be a matrix (list of lists) of integers/floats")
-            initial = float(number / div)
-            result = float("{:.2f}".format(initial))
-            new_row.append(result)
-        new_matrix.append(new_row)
-    return new_matrix
+
+    return [[round(elem / div, 2) for elem in row] for row in matrix]
