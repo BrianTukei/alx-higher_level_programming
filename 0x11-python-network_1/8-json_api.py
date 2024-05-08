@@ -1,25 +1,24 @@
 #!/usr/bin/python3
-"""Takes in a letter and sends a POST request to
-http://0.0.0.0:5000/search_user with the letter as a parameter
-"""
-
-import sys
+''' Search API '''
 import requests
+import sys
 
-if __name__ == "__main__":
-    if len(sys.argv) == 1:
-        letter = ""
-    else
-    letter = sys.argv[1]
-    payload = {'q': letter}
 
-    request = requests.post('http://0.0.0.0:5000/search_user', data=payload)
+if __name__ == '__main__':
+    data = {'q': ''}
 
     try:
-        response = request.json()
-        if response == {}:
+        data['q'] = sys.argv[1]
+    except:
+        pass
+
+    res = requests.post('http://0.0.0.0:5000/search_user', data)
+
+    try:
+        jsonify = res.json()
+        if not jsonify:
             print('No result')
         else:
-            print('[{}] {}'.format(response.get('id'), response.get('name')))
-    except ValueError:
+            print('[{}] {}'.format(jsonify.get('id'), jsonify.get('name')))
+    except:
         print('Not a valid JSON')
